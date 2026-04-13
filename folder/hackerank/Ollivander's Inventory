@@ -1,0 +1,1 @@
+select b.id,a.age,a.coi,a.power from(select w.code,age,min(coins_needed) as coi,power from wands w,wands_property wp where is_evil=0 and w.code=wp.code group by w.code,age,power) a ,wands b where a.code=b.code and a.power=b.power and a.coi=b.coins_needed order by power desc,age desc;
