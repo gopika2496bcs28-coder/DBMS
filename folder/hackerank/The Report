@@ -1,0 +1,28 @@
+/*
+Enter your query here.
+Please append a semicolon ";" at the end of the query and enter your query in a single line to avoid error.
+*/
+select name, grade, marks from (select name, marks, case 
+                        when marks >= 0 and marks < 10 then 1
+                        when marks >= 10 and marks < 20 then 2 
+                        when marks >= 20 and marks < 30 then 3
+                        when marks >= 30 and marks < 40 then 4
+                        when marks >= 40 and marks < 50 then 5
+                        when marks >= 50 and marks < 60 then 6
+                        when marks >= 60 and marks < 70 then 7
+                        when marks >= 70 and marks < 80 then 8
+                        when marks >= 80 and marks < 90 then 9
+                        when marks >= 90 and marks <= 100 then 10
+                     end as grade from students) where grade >= 8 order by grade desc , name;
+select 'NULL', grade, marks from (select name, marks, case 
+                        when marks >= 0 and marks < 10 then 1
+                        when marks >= 10 and marks < 20 then 2 
+                        when marks >= 20 and marks < 30 then 3
+                        when marks >= 30 and marks < 40 then 4
+                        when marks >= 40 and marks < 50 then 5
+                        when marks >= 50 and marks < 60 then 6
+                        when marks >= 60 and marks < 70 then 7
+                        when marks >= 70 and marks < 80 then 8
+                        when marks >= 80 and marks < 90 then 9
+                        when marks >= 90 and marks <= 100 then 10
+                     end as grade from students) where grade < 8 order by grade desc, marks;
