@@ -1,0 +1,4 @@
+
+-select s.hacker_id,sum(s.score) from Submissions s group by s.hacker_id;
+--select s.hacker_id,s.score,s.challenge_id from Submissions s order by s.hacker_id,s.challenge_id;
+select t2.hacker_id,h.name,t2.sum1 from (select t1.hacker_id,sum(t1.sco) sum1 from (select s.hacker_id,s.challenge_id,max(s.score) as sco from Submissions s group by s.hacker_id,s.challenge_id order by s.hacker_id,s.challenge_id) t1 group by t1.hacker_id) t2, Hackers h where h.hacker_id=t2.hacker_id and t2.sum1 > 0 order by t2.sum1 desc ,t2.hacker_id asc  ;
