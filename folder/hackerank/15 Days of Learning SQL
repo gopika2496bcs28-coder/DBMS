@@ -1,0 +1,18 @@
+select cnt.submission_date,cnt.cnt,name.hacker_id,name.name from 
+(select submission_date , count(distinct hacker_id)cnt from(
+select hacker_id,A.submission_date,sum_cnt,max_d from 
+(select hacker_id,submissioN_date,sum(cnt )over (partition by hacker_id order by submission_date)sum_cnt from 
+(select hacker_id,submission_date,count(distinct submission_date)as cnt from submissions
+group by hacker_id,submission_date having count(distinct submission_date)>=1 )) a  join (select  submission_date,sum(1) over (order by submission_date)max_d from (select distinct submissioN_date from submissions)q)b 
+on A.SUBMISSION_DATE=B.SUBMISSION_DATE  AND  max_d=sum_cnt  ) d group by submission_date)cnt inner join (select det.submission_date,det.cnt,det.hacker_id,hck.name from  
+(
+select submission_date,cnt,min(hacker_id)hacker_id from 
+(select hacker_id,a.submission_date,b.cnt 
+ from 
+(select hacker_id,submission_date,count(distinct submission_id)cnt from submissions
+group by hacker_id , submission_date having count(distinct submission_id)>=1)a inner join 
+(select c.submission_date,max(c.cnt)cnt from (
+select hacker_id,submission_date,count(distinct submission_id)cnt from submissions
+group by hacker_id , submission_date having count(distinct submission_id)>=1) c group by c.submission_date )b
+on a.submission_date=b.submission_date and a.cnt=b.cnt) ff group by submission_date,cnt)
+ det inner join hackers hck on det.hacker_Id=hck.hacker_id) name on cnt.submission_date=name.submission_date order by submission_date;
