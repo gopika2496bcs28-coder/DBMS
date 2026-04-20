@@ -1,0 +1,2 @@
+
+SELECT CITY, Length(CITY) as len FROM STATION WHERE CITY IN ('Amo','Marine On Saint Croix') order BY len ;
